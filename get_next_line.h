@@ -15,7 +15,14 @@
 
 #include <unistd.h>
 #include <stdlib.h>
+#include <fcntl.h>
 
 char	*get_next_line(int fd);
+
+int		ft_strchr(char *s, char c);
+char	*ft_strdup(char *s1);
+char	*ft_strjoin(char *s1, char *s2);
+size_t	ft_strlen(char *s);
+char	*ft_substr(char *s, unsigned int start, size_t len);
 
 #endif
