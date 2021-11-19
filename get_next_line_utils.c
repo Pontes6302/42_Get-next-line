@@ -12,15 +12,18 @@
 
 #include "get_next_line.h"
 
-int		ft_strchr(char *s, char c)
+int	ft_strchr(char *s, char c)
 {
-	while (*s != c)
+	int	i;
+
+	i = 0;
+	while (s[i] != c)
 	{
-		if (*s == 0)
-			return (0);
-		s++;
+		if (s[i] == '\0')
+			return (-1);
+		i++;
 	}
-	return (1);
+	return (i);
 }
 
 size_t	ft_strlen(char *s)

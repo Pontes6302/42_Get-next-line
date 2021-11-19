@@ -13,42 +13,64 @@
 #include "get_next_line.h"
 #include "stdio.h"
 
-char	*ft_return(char *final)
+char	*ft_return(char **final)
 {
+	char	*temp2;
+	char	*temp;
+	int		i;
 
-	return(ft_substr(final, 0, l - s));
+	if (!*final || **final == '\0')
+		return (0);
+	i = ft_strchr(*final, '\n');
+	if (ft_strchr(*final, '\n') >= 0)
+	{
+		temp = ft_substr(*final, 0, i + 1);
+		temp2 = ft_substr(*final, i + 1, ft_strlen(*final));
+		free (*final);
+		*final = temp2;
+		if (**final != '\0')
+			return (temp);
+	}
+	else
+		temp = ft_strdup(*final);
+	free (*final);
+	*final = 0;
+	return (temp);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*final[100000]; //<-------------------------------------
+	static char	*final[100000];
 	char		buff[BUFFER_SIZE + 1];
 	char		*temp;
 	int			count;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > 100000)
 		return (0);
-	//final = (char **)malloc(fd * sizeof(char *));
-	while ((count = read(fd, buff, BUFFER_SIZE)) > 0)
+	count = read(fd, buff, BUFFER_SIZE);
+	while (count > 0)
 	{
 		buff[count] = '\0';
 		if (!final[fd])
 			final[fd] = ft_strdup("");
-		temp = final[fd];
-		final[fd] = ft_strjoin(temp, buff);
-		free(temp);
-		if (ft_strchr(final[fd], '\n'))
+		temp = ft_strjoin(final[fd], buff);
+		free (final[fd]);
+		final[fd] = temp;
+		if (ft_strchr(final[fd], '\n') != -1)
 			break ;
+		count = read(fd, buff, BUFFER_SIZE);
 	}
-	while(f)
-	return(ft_return(final[fd]));
+	return(ft_return(&final[fd]));
 }
 
-int main()
-{
-	char *string;
-	int fd = open("shit.txt", O_RDONLY);
-	string = get_next_line(fd);
-
-	printf("%s", string);
-}
+// int main()
+// {
+// 	char *string;
+// 	int fd = open("shit.txt", O_RDONLY);
+// 	string = get_next_line(fd);
+// 	printf("%s----", string);
+// 	string = get_next_line(fd);
+// 	printf("%s----", string);
+// 	string = get_next_line(fd);
+// 	printf("%s----", string);
+// }
