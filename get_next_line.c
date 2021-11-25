@@ -6,7 +6,7 @@
 /*   By: sifreita <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/10/28 17:23:43 by sifreita          #+#    #+#             */
-/*   Updated: 2021/11/20 00:06:50 by sifreita         ###   ########.fr       */
+/*   Updated: 2021/11/25 17:03:43 by sifreita         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ char	*ft_return(char **final)
 	if (!*final || **final == '\0')
 		return (0);
 	i = ft_strchr(*final, '\n');
-	if (ft_strchr(*final, '\n') >= 0)
+	if (i >= 0)
 	{
 		temp = ft_substr(*final, 0, i + 1);
 		temp2 = ft_substr(*final, i + 1, ft_strlen(*final));

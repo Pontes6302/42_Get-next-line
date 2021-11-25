@@ -10,12 +10,14 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line_bonus.h"
+#include "get_next_line.h"
 
 int	ft_strchr(char *s, char c)
 {
 	int	i;
 
+	if (!s || !c)
+		return (-1);
 	i = 0;
 	while (s[i] != c)
 	{
@@ -84,11 +86,13 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 {
 	char	*res;
 	size_t	i;
+	size_t	l;
 
 	if (!s)
 		return (0);
 	i = 0;
-	if (start >= ft_strlen(s))
+	l = ft_strlen(s);
+	if (start >= l)
 	{
 		res = malloc(sizeof(char));
 		if (!res)
@@ -96,12 +100,12 @@ char	*ft_substr(char *s, unsigned int start, size_t len)
 		*res = '\0';
 		return (res);
 	}
-	if (ft_strlen(s) < len)
+	if (l < len)
 		return (ft_strdup((char *)s + start));
 	res = (char *)malloc(len + 1 * sizeof(char));
 	if (!res)
 		return (0);
-	while (start < ft_strlen(s) && i < len)
+	while (start < l && i < len)
 		res[i++] = s[start++];
 	res[i] = '\0';
 	return (res);
